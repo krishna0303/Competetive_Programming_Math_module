@@ -1,4 +1,4 @@
-
+//The time complexity of the extended Euclidean algorithm is O(log(max(A,M))).
 
 #include <bits/stdc++.h>
 
