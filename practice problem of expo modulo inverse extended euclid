@@ -1,0 +1,68 @@
+//find ((A^B)/C)%M
+
+
+
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+long expo(long x,long n,long m){
+    if(n==0){
+        return 0;
+    }
+    if(n==1){
+        return x%m;
+        
+        
+    }
+    
+    if(n%2==0){
+        return expo((x*x)%m,n/2,m)%m;
+        
+    }else{
+        return (x%m*expo(x,n-1,m)%m)%m;
+        
+        
+    }
+    
+}
+
+
+
+struct euclid{
+    long g,x,y;
+};
+
+euclid extendedEculid(long a,long b){
+    if(b==0){
+        euclid ans;
+        ans.g=a;
+        ans.x=1;
+        ans.y=0;
+        return ans;
+    }else{
+        euclid smallans=extendedEculid(b,a%b);
+        euclid ans;
+        ans.x=smallans.y;
+        ans.g=smallans.g;
+        ans.y=smallans.x-(a/b)*smallans.y;
+        return ans;
+    
+    }
+}
+
+
+int main()
+{
+    long a,b,c,m;
+    cin>>a>>b>>c>>m;
+    long ans1=expo(a,b,m);
+    euclid ans2=extendedEculid(c,m);
+    long XA=((ans2.x%m)+m)%m;
+    long ans=((ans1%m)*(XA)%m)%m;
+    cout<<ans<<endl;
+    
+    return 0;
+}
+
